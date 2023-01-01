@@ -2,58 +2,39 @@ import React, { useState } from "react";
 import api from "../api";
 
 const Users = () => {
-    const [value, setLength] = useState(api.users.fetchAll().length);
-    const [text, setText] = useState("человек");
+    const [users, setUsers] = useState(api.users.fetchAll());
 
     const renderUsers = () => {
         return (
-            api.users.fetchAll().map((user) => (
-                <tr className="line" key={user._id}>
-                    <td>{user.name}</td>
-                    <td>{user.qualities.map((qualitie) => (<span key={qualitie._id} className={"badge m-1 bg-" + qualitie.color}>{qualitie.name}</span>))}</td>
-                    <td key={user.profession._id}>{user.profession.name}</td>
-                    <td>{user.completedMeetings}</td>
-                    <td>{user.rate}</td>
-                    <td><button className="btn bg-danger" onClick={(event) => deleteTr(event)}>Delete</button></td>
+            users.map((usersInfo) => (
+                <tr className="line" key={usersInfo._id}>
+                    <td>{usersInfo.name}</td>
+                    <td>{usersInfo.qualities.map((qualitie) => (<span key={qualitie._id} className={"badge m-1 bg-" + qualitie.color}>{qualitie.name}</span>))}</td>
+                    <td key={usersInfo.profession._id}>{usersInfo.profession.name}</td>
+                    <td>{usersInfo.completedMeetings}</td>
+                    <td>{usersInfo.rate}</td>
+                    <td><button className="btn bg-danger" onClick={() => handleDelete(usersInfo._id)}>Delete</button></td>
                 </tr>
             ))
-        )
+        );
     };
 
-    const getLengthTable = () => {
-        setLength((value) => value - 1);
+    const handleDelete = (userId) => {
+        setUsers((prev) => prev.filter(users => users._id !== userId));
     };
 
-    const deleteTr = (event) => {
-        let target = event.target;
-        target.closest(".line").remove();
-        getLengthTable();
-        if (!document.querySelector(".line")) {
-            document.getElementById('mytable').remove();
-            document.getElementById('message').remove();
-            document.querySelector("h2").insertAdjacentHTML('afterbegin', '<span class="badge bg-danger">Никто  с тобой не тусанет</span>');
-        };
-        // -----не работают логические операторы && и || ------
-        if (value === 5) {
-            people()
-        } else if (value === 4) {
-            people()
-        } else if (value === 3) {
-            people()
-        } else {
-            peopleDefoult()
-        }
-    };
-    const people = () => {
-        setText((text) => text = "человека");
-    };
-    const peopleDefoult = () => {
-        setText((text) => text = "человек");
+    const renderPhrase = (numbers) => {
+        return (
+            numbers === 4 ? "человека тусонет с тобой сегодня" :
+                numbers === 3 ? "человека тусонет с тобой сегодня" :
+                    numbers === 2 ? "человека тусонет с тобой сегодня" :
+                        "человек тусонет с тобой сегодня"
+        );
     };
 
-    return (
+    const contentMain = (
         <>
-            <h2><span id="message" className="badge bg-primary">{value} {text} тусонет с тобой сегодня</span></h2>
+            <h2><span className={users.length === 0 ? "badge bg-danger" : "badge bg-primary"}>{users.length === 0 ? "" : users.length} {renderPhrase(users.length)} </span></h2>
             <table id="mytable" className="table table-striped table-hover align-middle">
                 <thead>
                     <tr>
@@ -71,6 +52,10 @@ const Users = () => {
             </table>
         </>
     );
+
+    const contentZero = <h2><span className="badge bg-danger">Никто не тусонет с тобой</span></h2>;
+
+    return users.length === 0 ? contentZero : contentMain;
 };
 
 export default Users;
