@@ -11,14 +11,10 @@ function App() {
     };
 
     return (
-        users.length === 0
-            ? <div>
-                {SearchStatus(users.length)}
-            </div>
-            : <div>
-                {SearchStatus(users.length)}
-                {Users(handleDelete, users)}
-            </div>
+        <div>
+            {SearchStatus(users.length)}
+            {Users(handleDelete, users)}
+        </div>
     );
 
 };
