@@ -1,10 +1,10 @@
 import React from "react";
 
-const Qualitie = (qualitieInfo) => {
+const Qualitie = ({ color, name }) => {
     return (
         <span
-            className={"badge m-1 bg-" + qualitieInfo.color}>
-            {qualitieInfo.name}
+            className={"badge m-1 bg-" + color}>
+            {name}
         </span>
     );
 };

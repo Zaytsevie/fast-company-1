@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchStatus = (length) => {
+const SearchStatus = ({ length }) => {
     return (
         length === 0
             ? <h2>

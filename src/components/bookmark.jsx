@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const BookMark = (status) => {
+const BookMark = ({ status }) => {
     let [change, setChange] = useState(status)
     return (
         <li
