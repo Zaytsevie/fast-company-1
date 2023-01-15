@@ -1,0 +1,26 @@
+import React, { useState } from "react";
+import Users from "./components/users";
+import SearchStatus from "./components/searchStatus";
+import api from "./api";
+
+function App() {
+    const [users, setUsers] = useState(api.users.fetchAll());
+
+    const handleDelete = (userId) => {
+        setUsers(users.filter((user) => user._id !== userId));
+    };
+
+    return (
+        users.length === 0
+            ? <div>
+                {SearchStatus(users.length)}
+            </div>
+            : <div>
+                {SearchStatus(users.length)}
+                {Users(handleDelete, users)}
+            </div>
+    );
+
+};
+
+export default App;
