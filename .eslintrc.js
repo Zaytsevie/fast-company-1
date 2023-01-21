@@ -3,19 +3,23 @@ const { before } = require("lodash");
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: ["plugin:react/recommended", "standard"],
   overrides: [],
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module",
+    sourceType: "module"
   },
   plugins: ["react"],
   rules: {
-    indent: ["error", 4],
-    semi: [2, "always"],
+    indent: ["error", 2], // Отступ количество пробелов
+    semi: [2, "always"], // Точка с запятой в конце строки
+
+    // Ошибка при наличии пробела при обозночении функции, уберём её
     "space-before-function-paren": ["error", "never"],
-    quotes: ["error", "double", { allowTemplateLiterals: true }],
-  },
+
+    // Использование двойных кавычек
+    quotes: ["error", "double", { allowTemplateLiterals: true }]
+  }
 };
