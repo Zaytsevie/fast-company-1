@@ -5,22 +5,16 @@ import api from "./api";
 
 function App() {
     const [users, setUsers] = useState(api.users.fetchAll());
-
     const handleDeleteUser = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
 
     return (
-        <div>
-            <SearchStatus
-                length={users.length}
-            />
-            {users.length > 0 && <Users
-                handleDelete={handleDeleteUser}
-                users={users}
-            />}
-        </div>
+        <>
+            <SearchStatus length={users.length} />
+            <Users handleDelete={handleDeleteUser} users={users} />
+        </>
     );
-};
+}
 
 export default App;
