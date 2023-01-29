@@ -14,7 +14,10 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
                     <li
                         className={
                             "page-item" +
-                            (page === currentPage ? " active" : "")
+                            (page === currentPage
+                                ? " active"
+                                : ""
+                            )
                         }
                         key={"page_" + page}
                     >
