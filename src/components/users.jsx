@@ -7,8 +7,13 @@ import GroupList from "./groupList";
 import api from "../api";
 import SearchStatus from "../components/searchStatus";
 import _ from "lodash";
+import { useParams } from "react-router-dom";
+import UserInfo from "./userInfo";
 
 const Users = () => {
+    const params = useParams();
+    const userId = params.usersId;
+
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
@@ -72,48 +77,53 @@ const Users = () => {
         };
 
         return (
-            <div className="d-flex">
-                {professions && (
-                    <div className="d-flex flex-column flex-shrink-0 p-3">
+            <>{userId
+                ? <UserInfo id={userId} />
+                : <div className="d-flex">
+                    {professions && (
+                        <div className="d-flex flex-column flex-shrink-0 p-3">
 
-                        <GroupList
-                            selectedItem={selectedProf}
-                            items={professions}
-                            onItemSelect={handleProfessionSelect}
-                        />
-                        <button
-                            className="btn btn-secondary mt-2"
-                            onClick={clearFilter}
-                        >
-                            Очистить
-                        </button>
-                    </div>
+                            <GroupList
+                                selectedItem={selectedProf}
+                                items={professions}
+                                onItemSelect={handleProfessionSelect}
+                            />
+                            <button
+                                className="btn btn-secondary mt-2"
+                                onClick={clearFilter}
+                            >
+                Очистить
+                            </button>
+                        </div>
 
-                )}
-                <div className="d-flex flex-column">
-                    <SearchStatus length={count} />
-
-                    {count > 0 && (
-                        <UsersTable
-                            users={userCrop}
-                            onSort={handleSort}
-                            selectedSort={sortBy}
-                            onDelete={handleDelete}
-                            onToggleBookMark={handleToggleBookMark}
-                        // {...rest}
-                        />
                     )}
-                    <div className="d-flex justify-content-center">
-                        <Pagination
-                            itemsCount={count}
-                            pageSize={pageSize}
-                            currentPage={currentPage}
-                            onPageChange={handlePageChange}
-                        />
-                    </div>
-                </div>
+                    <div className="d-flex flex-column">
+                        <SearchStatus length={count} />
 
-            </div>
+                        {count > 0 && (
+                            <UsersTable
+                                users={userCrop}
+                                onSort={handleSort}
+                                selectedSort={sortBy}
+                                onDelete={handleDelete}
+                                onToggleBookMark={handleToggleBookMark}
+                                // {...rest}
+                            />
+                        )}
+                        <div className="d-flex justify-content-center">
+                            <Pagination
+                                itemsCount={count}
+                                pageSize={pageSize}
+                                currentPage={currentPage}
+                                onPageChange={handlePageChange}
+                            />
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+            </>
         );
     } return "loading...";
 };
