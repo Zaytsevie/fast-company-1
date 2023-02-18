@@ -5,12 +5,12 @@ import UsersTable from "./usersTable";
 import PropTypes from "prop-types";
 import GroupList from "./groupList";
 import api from "../api";
-import SearchStatus from "../components/searchStatus";
+import SearchStatus from "./searchStatus";
 import _ from "lodash";
 import { useParams } from "react-router-dom";
 import UserInfo from "./userInfo";
 
-const Users = () => {
+const UsersList = () => {
     const params = useParams();
     const userId = params.usersId;
 
@@ -128,8 +128,8 @@ const Users = () => {
     } return "loading...";
 };
 
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.array
 };
 
-export default Users;
+export default UsersList;

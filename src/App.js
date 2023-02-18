@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Login from "./components/login";
-import MainPage from "./components/mainpage";
+import Login from "./layouts/login";
+import MainPage from "./layouts/mainpage";
 import NavBar from "./components/navBar";
 import NotFound from "./components/not-found";
 import UserInfo from "./components/userInfo";
-import Users from "./components/users";
+import Users from "./layouts/users";
 
 function App() {
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../api";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
@@ -13,10 +13,9 @@ const UserInfo = ({ id }) => {
         history.push("/users");
     };
 
-    const getUsersById = (id) => {
+    useEffect(() => {
         api.users.getById(id).then((data) => setUser(data));
-    };
-    getUsersById(id);
+    });
 
     return (
         <>
@@ -27,7 +26,7 @@ const UserInfo = ({ id }) => {
                     <h3>Качества:{<QualitiesList qualities={user.qualities} />}</h3>
                     <h3>Встретился, раз: {user.completedMeetings}</h3>
                     <h3>Рейтинг: {user.rate}</h3>
-                    <button onClick={() => handleReturnAllUsers()}>Все пользователи</button>
+                    <button onClick={handleReturnAllUsers}>Все пользователи</button>
                 </div>
                 : <div>
                     <span>loading...</span>
