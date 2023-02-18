@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-const BookMark = ({ status }) => {
-    const [change, setChange] = useState(status);
+const BookMark = ({ status, ...rest }) => {
     return (
-        <span
-            className={change === false ? "bi bi-star btn" : "bi bi-star-fill btn"}
-            onClick={() => setChange((change) => !change)}
-        ></span>
+        <span {...rest}>
+            <i className={status ? "bi bi-star-fill btn" : "bi bi-star btn"}></i>
+        </span>
     );
 };
 
 BookMark.propTypes = {
-    status: PropTypes.bool.isRequired
+    status: PropTypes.bool
 };
 
 export default BookMark;

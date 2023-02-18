@@ -10,7 +10,11 @@ const SearchStatus = ({ length }) => {
         )
         : (
             <h2>
-                <span className={length === 0 ? "badge bg-danger" : "badge bg-primary"}>
+                <span
+                    className={
+                        length === 0 ? "badge bg-danger" : "badge bg-primary"
+                    }
+                >
                     {length === 0 ? "" : length}
                     {length === 4
                         ? " человека тусонет с тобой сегодня"
