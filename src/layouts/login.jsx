@@ -59,10 +59,10 @@ const Login = () => {
         console.log(data);
     };
     return (
-        <div className="container mt-5 shadow">
+        <div className="container mt-5 shadow rounded-3 bg-light bg-gradient">
             <div className="row">
                 <div className="col-md-6 offset-md-3 p-4">
-                    <h3 className="mb-4">Login</h3>
+                    <h3 className="mb-2 text-center">Login</h3>
                     <form onSubmit={handleSubmit}>
                         <TextField
                             label="Электронная почта"
@@ -79,7 +79,7 @@ const Login = () => {
                             onChange={handleChange}
                             error={errors.password}
                         />
-                        <button type="submit" disabled={!isValid} className="btn btn-primary w-100 mx-auto">Submit</button>
+                        <button type="submit" disabled={!isValid} className="btn btn-primary w-100 mx-auto mt-4">Войти</button>
                     </form>
                 </div>
             </div>

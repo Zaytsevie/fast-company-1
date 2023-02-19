@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import QualitiesList from "./qualitiesList";
 
 const UserInfo = ({ id }) => {
-    const [user, setUser] = useState();
+    const [user, setUser] = useState([]);
 
     const history = useHistory();
 
@@ -20,13 +20,13 @@ const UserInfo = ({ id }) => {
     return (
         <>
             {user
-                ? <div>
-                    <h1>{user.name}</h1>
-                    <h3>Профессия: { user.profession.name}</h3>
-                    <h3>Качества:{<QualitiesList qualities={user.qualities} />}</h3>
-                    <h3>Встретился, раз: {user.completedMeetings}</h3>
-                    <h3>Рейтинг: {user.rate}</h3>
-                    <button onClick={handleReturnAllUsers}>Все пользователи</button>
+                ? <div className="container mt-5 shadow rounded-3 bg-light bg-gradient card text-center">
+                    <h1 className="m-2 card-header">{user.name}</h1>
+                    <h3 className="m-2">Профессия: { user.profession.name}</h3>
+                    <h3 className="m-2">Качества:{<QualitiesList qualities={user.qualities} />}</h3>
+                    <h3 className="m-2">Встретился, раз: {user.completedMeetings}</h3>
+                    <h3 className="m-2">Рейтинг: {user.rate}</h3>
+                    <button onClick={handleReturnAllUsers} className="btn btn-primary w-50 mx-auto m-4">Все пользователи</button>
                 </div>
                 : <div>
                     <span>loading...</span>
