@@ -59,9 +59,9 @@ const Login = () => {
         console.log(data);
     };
     return (
-        <div className="container mt-5 shadow rounded-3 bg-light bg-gradient">
+        <div className="container mt-5 shadow rounded-3 bg-light bg-gradient card w-50">
             <div className="row">
-                <div className="col-md-6 offset-md-3 p-4">
+                <div className="col-md-8 offset-md-2 p-4">
                     <h3 className="mb-2 text-center">Login</h3>
                     <form onSubmit={handleSubmit}>
                         <TextField
