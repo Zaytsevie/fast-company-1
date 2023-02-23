@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { paginate } from "../utils/paginate";
-import Pagination from "./pagination";
-import UsersTable from "./usersTable";
+import { paginate } from "../../../utils/paginate";
+import Pagination from "../../common/pagination";
+import UsersTable from "../../ui/usersTable";
 import PropTypes from "prop-types";
-import GroupList from "./groupList";
-import api from "../api";
-import SearchStatus from "./searchStatus";
+import GroupList from "../../common/groupList";
+import api from "../../../api";
+import SearchStatus from "../../ui/searchStatus";
 import _ from "lodash";
 import { useParams } from "react-router-dom";
-import UserInfo from "./userInfo";
-import TextField from "./textField";
+import UserPage from "../userPage/userPage";
+import TextField from "../../common/form/textField";
 
-const UsersList = () => {
+const UsersListPage = () => {
     const params = useParams();
     const userId = params.usersId;
 
@@ -100,7 +100,7 @@ const UsersList = () => {
 
         return (
             <>{userId
-                ? <UserInfo id={userId} />
+                ? <UserPage id={userId} />
                 : <div className="d-flex">
                     {professions && (
                         <div className="d-flex flex-column flex-shrink-0 p-3">
@@ -120,25 +120,29 @@ const UsersList = () => {
 
                     )}
                     <div className="d-flex flex-column">
-                        <SearchStatus length={count} />
-                        <TextField
-                            label=""
-                            placeholder="Поиск..."
-                            name="search"
-                            value={data.search}
-                            onChange={handleChange}
-                        />
-                        {count > 0 && (
 
-                            <UsersTable
-                                users={userCrop}
-                                onSort={handleSort}
-                                selectedSort={sortBy}
-                                onDelete={handleDelete}
-                                onToggleBookMark={handleToggleBookMark}
-                            />
-
-                        )}
+                        {count > 0
+                            ? <div>
+                                <SearchStatus length={count} />
+                                <TextField
+                                    label=""
+                                    placeholder="Поиск..."
+                                    name="search"
+                                    value={data.search}
+                                    onChange={handleChange}
+                                />
+                                <UsersTable
+                                    users={userCrop}
+                                    onSort={handleSort}
+                                    selectedSort={sortBy}
+                                    onDelete={handleDelete}
+                                    onToggleBookMark={handleToggleBookMark}
+                                />
+                            </div>
+                            : <div>
+                                <span>loading...</span>
+                            </div>
+                        }
                         <div className="d-flex justify-content-center">
                             <Pagination
                                 itemsCount={count}
@@ -157,8 +161,8 @@ const UsersList = () => {
     } return "loading...";
 };
 
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array
 };
 
-export default UsersList;
+export default UsersListPage;

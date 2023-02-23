@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import api from "../api";
+import api from "../../../api";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import QualitiesList from "./qualitiesList";
+import Qualities from "../../ui/qualities";
 
-const UserInfo = ({ id }) => {
+const UserPage = ({ id }) => {
     const [user, setUser] = useState();
 
     const history = useHistory();
@@ -23,7 +23,7 @@ const UserInfo = ({ id }) => {
                 ? <div className="container mt-5 shadow rounded-3 bg-light bg-gradient card text-center w-50">
                     <h1 className="m-2 card-header">{user.name}</h1>
                     <h3 className="m-2">Профессия: { user.profession.name}</h3>
-                    <h3 className="m-2">Качества:{<QualitiesList qualities={user.qualities} />}</h3>
+                    <h3 className="m-2">Качества:{<Qualities qualities={user.qualities} />}</h3>
                     <h3 className="m-2">Встретился, раз: {user.completedMeetings}</h3>
                     <h3 className="m-2">Рейтинг: {user.rate}</h3>
                     <button onClick={handleReturnAllUsers} className="btn btn-primary w-50 mx-auto m-4">Все пользователи</button>
@@ -36,9 +36,9 @@ const UserInfo = ({ id }) => {
     );
 };
 
-UserInfo.propTypes = {
+UserPage.propTypes = {
     id: PropTypes.string,
     getUsersById: PropTypes.func
 };
 
-export default UserInfo;
+export default UserPage;
