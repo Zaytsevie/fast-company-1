@@ -43,7 +43,7 @@ const EditUserForm = () => {
             setData({
                 name: user.name,
                 email: user.email,
-                profession: user.profession.name,
+                profession: user.profession._id,
                 sex: user.sex,
                 qualities: user.qualities
             });
@@ -65,8 +65,9 @@ const EditUserForm = () => {
 
     const professionReturnInfo = () => {
         const profIndex1 = Object.values(professions).findIndex((prof) => prof._id === data.profession);
-        const profIndex2 = Object.values(professions).findIndex((prof) => prof.name === data.profession);
-        return Object.values(professions)[profIndex1] || Object.values(professions)[profIndex2];
+        // const profIndex2 = Object.values(professions).findIndex((prof) => prof.name === data.profession);
+        return Object.values(professions)[profIndex1];
+        // || Object.values(professions)[profIndex2];
     };
 
     const qualitiesReturnInfo = () =>
@@ -152,7 +153,7 @@ const EditUserForm = () => {
                             />
                             <SelectField
                                 label="Выберите вашу профессию"
-                                defaultOption={data.profession}
+                                defaultOption="Chooes..."
                                 options={professions}
                                 value={data.profession}
                                 error={errors.profession}
