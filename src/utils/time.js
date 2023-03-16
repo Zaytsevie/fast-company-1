@@ -17,9 +17,9 @@ export function time(time) {
     } else if (currentTime >= 1800 && currentTime <= 86400000) {
         return `${date.getHours()} : ${date.getMinutes()}`;
     } else if (currentTime >= 86400000 && currentTime <= 2678400000) {
-        return `${date.toLocaleString("en-US", options2)}`;
+        return `${date.toLocaleString("rus-RU", options2)}`;
     } else if (currentTime >= 2678400000) {
-        return `${date.toLocaleString("en-US", options1)}`;
+        return `${date.toLocaleString("rus-RU", options1)}`;
     }
     return "";
 }
