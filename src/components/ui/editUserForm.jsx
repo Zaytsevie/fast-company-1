@@ -14,6 +14,7 @@ import MultiSelectField from "../common/form/multiSelectField";
 const EditUserForm = () => {
     const params = useParams();
     const { userId } = params;
+
     const [user, setUser] = useState();
     const [errors, setErrors] = useState({});
     const [professions, setProfession] = useState({});
@@ -64,10 +65,8 @@ const EditUserForm = () => {
     };
 
     const professionReturnInfo = () => {
-        const profIndex1 = Object.values(professions).findIndex((prof) => prof._id === data.profession);
-        // const profIndex2 = Object.values(professions).findIndex((prof) => prof.name === data.profession);
-        return Object.values(professions)[profIndex1];
-        // || Object.values(professions)[profIndex2];
+        const profIndex = Object.values(professions).findIndex((prof) => prof._id === data.profession);
+        return Object.values(professions)[profIndex];
     };
 
     const qualitiesReturnInfo = () =>
@@ -82,6 +81,8 @@ const EditUserForm = () => {
             ...prevState,
             [target.name]: target.value
         }));
+        console.log("data", data);
+        console.log("target", target);
     };
 
     const isValid = Object.keys(errors).length === 0;
@@ -101,6 +102,11 @@ const EditUserForm = () => {
         history.push(`/users/${userId}`);
         console.log(data);
     };
+
+    const handleReturn = () => {
+        history.push(`/users/${userId}`);
+    };
+
     const validatorConfig = {
         name: {
             isRequired: {
@@ -131,12 +137,16 @@ const EditUserForm = () => {
 
     return (
         <div className="container mt-5">
+            <button className="btn btn-primary" onClick={handleReturn} >
+                <i className="bi bi-caret-left"></i>
+                {" "}
+                Назад
+            </button>
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-4">
                     {user
                         ? <form
-                            onSubmit={handleSubmit}
-                        >
+                            onSubmit={handleSubmit} >
                             <TextField
                                 label="Имя"
                                 name="name"
@@ -184,7 +194,6 @@ const EditUserForm = () => {
                                 className="btn btn-primary w-100 mx-auto">
                                 Изменить
                             </button>
-
                         </form>
                         : <span>Loading...</span>}
                 </div>

@@ -32,7 +32,7 @@ const SelectField = ({ label, value, onChange, defaultOption, options, error, na
                 value={value}
                 onChange={handleChange}
             >
-                <option value="">
+                <option disabled value="">
                     {defaultOption}
                 </option>
                 {
