@@ -16,11 +16,41 @@ const AuthProvider = ({ children }) => {
     const [currentUser, setUser] = useState({});
     const [error, setError] = useState(null);
 
+    async function signIn({ email, password, ...rest }) {
+        const urlSignIn = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_KEY}`;
+        try {
+            const { data } = await httpAuth.post(urlSignIn, {
+                email,
+                password,
+                returnSecureToken: true
+            });
+            console.log("data", data);
+            setTokens(data);
+        } catch (error) {
+            errorCatcher(error);
+            const { code, message } = error.response.data.error;
+            console.log(code, message);
+            if (code === 400) {
+                if (message === "EMAIL_NOT_FOUND") {
+                    const errorObject = {
+                        email: "Пользователь с таким Email не зарегистирован"
+                    };
+                    throw errorObject;
+                } else if (message === "INVALID_PASSWORD") {
+                    const errorObject = {
+                        password: "Не верный пароль"
+                    };
+                    throw errorObject;
+                }
+            }
+        }
+    }
+
     async function signUp({ email, password, ...rest }) {
-        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KEY}`;
+        const urlSignUp = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KEY}`;
 
         try {
-            const { data } = await httpAuth.post(url, {
+            const { data } = await httpAuth.post(urlSignUp, {
                 email,
                 password,
                 returnSecureToken: true
@@ -39,7 +69,6 @@ const AuthProvider = ({ children }) => {
                     throw errorObject;
                 }
             }
-            // throw new Error
         }
     }
     async function createUser(data) {
@@ -61,7 +90,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [error]);
     return (
-        <AuthContext.Provider value={{ signUp, currentUser }}>
+        <AuthContext.Provider value={{ signUp, signIn, currentUser }}>
             {children}
         </AuthContext.Provider>
     );
