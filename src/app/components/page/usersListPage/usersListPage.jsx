@@ -29,7 +29,7 @@ const UsersListPage = () => {
             return user;
         });
         // setUsers(newArray);
-        console.log("newArray", newArray);
+        console.log(newArray);
     };
 
     useEffect(() => {
